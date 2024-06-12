@@ -8,4 +8,5 @@ public interface DeviceService {
     Device saveNewDevice(Device device);
     List<Device> loadAllDevice();
     Device searchDeviceByName(String name);
+    String removeDeviceById(String userName, Long deviceId);
 }

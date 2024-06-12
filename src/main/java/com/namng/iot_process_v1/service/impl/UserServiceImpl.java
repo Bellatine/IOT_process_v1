@@ -4,6 +4,9 @@ import com.namng.iot_process_v1.model.User;
 import com.namng.iot_process_v1.repository.UserRepository;
 import com.namng.iot_process_v1.service.PasswordEncoderService;
 import com.namng.iot_process_v1.service.UserService;
+import com.namng.iot_process_v1.util.CacheManager;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -16,6 +19,8 @@ import java.util.Map;
 
 @Service
 public class UserServiceImpl implements UserService {
+
+    private static final Logger logger = LogManager.getLogger(UserServiceImpl.class);
 
     @Autowired
     private UserRepository userRepository;
@@ -31,10 +36,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User loginUser(String username, String password) {
-        User user = userRepository.findByUsername(username);
+        User user = CacheManager.Users.ALLUSERS.get(username);
         if (user != null && passwordEncoder.matches(password, user.getPassword())) {
             return user;
         } else {
+            logger.error("no user map to username" + username );
             throw new RuntimeException("Invalid username or password");
         }
     }
@@ -43,6 +49,10 @@ public class UserServiceImpl implements UserService {
     public Map<String, User> loadAllUser() {
         List<User> listUsers = userRepository.findAll();
         Map<String, User> mapUsers = new HashMap<>();
+        if(listUsers == null || listUsers.isEmpty()){
+            logger.error("Load user fail! ");
+            return null;
+        }
         for(User user : listUsers){
             mapUsers.put(user.getUsername(), user);
         }

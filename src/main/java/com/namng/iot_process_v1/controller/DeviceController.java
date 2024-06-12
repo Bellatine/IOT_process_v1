@@ -3,6 +3,8 @@ package com.namng.iot_process_v1.controller;
 import com.namng.iot_process_v1.model.Device;
 import com.namng.iot_process_v1.service.DeviceService;
 import com.namng.iot_process_v1.service.impl.DeviceServiceImp;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +16,8 @@ import java.util.List;
 @RequestMapping("/api/iot/device")
 public class DeviceController {
 
+    private static final Logger logger = LogManager.getLogger(DeviceController.class);
+
     @Autowired
     private DeviceService deviceService = new DeviceServiceImp();
 
@@ -24,6 +28,7 @@ public class DeviceController {
             response = deviceService.loadAllDevice();
             return ResponseEntity.ok(response);
         }catch (Exception e){
+            logger.error("get device fail", e);
             return ResponseEntity.badRequest().body(e.getMessage());
         }
 
@@ -40,6 +45,17 @@ public class DeviceController {
         try{
             return ResponseEntity.ok( deviceService.saveNewDevice(deviceInforRequest));
         }catch (Exception e){
+            logger.error("add device fail", e);
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+    @DeleteMapping("/{userName}/{deviceId}")
+    public ResponseEntity<?> revoveUserDevice(@PathVariable String userName, @PathVariable Long deviceId) {
+        try {
+            String message = deviceService.removeDeviceById(userName, deviceId);
+            return ResponseEntity.ok(message);
+        } catch (Exception e) {
+            logger.error("remove device fail", e);
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }

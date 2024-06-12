@@ -22,7 +22,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/api/iot/auth/register", "/api/iot/auth/login", "/api/iot/device/getAllDevice", "/api/iot/device/addDevice").permitAll()
+                .antMatchers("/api/iot/auth/register", "/api/iot/auth/login", "/api/iot/device/getAllDevice", "/api/iot/device/addDevice", "/api/iot/device/{{userName}}/{{deviceId}}").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin().disable();

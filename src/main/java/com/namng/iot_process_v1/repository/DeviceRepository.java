@@ -15,4 +15,6 @@ public interface DeviceRepository extends JpaRepository<Device, Long> {
     Optional<Device> findById(Long id);
     @Query("SELECT d FROM Device d WHERE d.name = :name")
     Device findByName(@Param("name") String name);
+    void deleteByName(String name);
+    void deleteById(Long id);
 }
