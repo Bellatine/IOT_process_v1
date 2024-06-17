@@ -6,8 +6,8 @@ import javax.persistence.*;
 
 @Data
 @Entity
-@Table(name = "device")
-public class Device {
+@Table(name = "pool")
+public class Pool {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -16,11 +16,9 @@ public class Device {
     private String name;
 
     @Column(nullable = false)
-    private Long status;
-
-    @Column(nullable = false)
     private String description;
 
     @Column(nullable = false)
-    private Long id_pool;
+    private Long id_user;
+
 }

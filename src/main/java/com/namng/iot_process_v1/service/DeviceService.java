@@ -9,4 +9,5 @@ public interface DeviceService {
     List<Device> loadAllDevice();
     Device searchDeviceByName(String name);
     String removeDeviceById(String userName, Long deviceId);
+    List<Device> getListDevicebyPoolId(String userName, Long poolId);
 }

@@ -59,4 +59,14 @@ public class DeviceController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+
+    @GetMapping("/getListDeviceByPoolId")
+    public ResponseEntity<?> getListDeviceByPoolId(@RequestParam String username, @RequestParam Long poolId){
+        try{
+            return ResponseEntity.ok(deviceService.getListDevicebyPoolId(username,poolId));
+        }catch (Exception e){
+            logger.error("getListDeviceByPoolId fail!" + username + " --- " + poolId);
+            return ResponseEntity.badRequest().body("getListDeviceByPoolId fail");
+        }
+    }
 }
