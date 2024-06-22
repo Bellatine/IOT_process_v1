@@ -52,6 +52,11 @@ public class AuthController {
         }
     }
 
+    @DeleteMapping("/{userAdmin}/{userName}")
+    public ResponseEntity<?> removeUser(@PathVariable String userAdmin, @PathVariable String userName){
+        return ResponseEntity.ok("ok");
+    }
+
     @GetMapping("/test")
     public ResponseEntity<?> test(){
         return ResponseEntity.ok("Done");
