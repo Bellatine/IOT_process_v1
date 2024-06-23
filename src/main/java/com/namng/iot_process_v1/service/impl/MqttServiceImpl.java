@@ -12,6 +12,7 @@ import org.apache.logging.log4j.Logger;
 import org.eclipse.paho.client.mqttv3.MqttClient;
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.eclipse.paho.client.mqttv3.MqttException;
+import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class MqttServiceImpl implements MqttService {
@@ -29,9 +30,10 @@ public class MqttServiceImpl implements MqttService {
         String broker = "tcp://broker.hivemq.com:1883"; // Thay đổi URL broker theo nhu cầu
         String clientId = "namng";
         String topic = "/test/namng1"; // Thay đổi chủ đề theo nhu cầu
+        MemoryPersistence persistence = new MemoryPersistence();
 
         try {
-            MqttClient client = new MqttClient(broker, clientId);
+            MqttClient client = new MqttClient(broker, clientId, persistence);
             MqttConnectOptions options = new MqttConnectOptions();
             options.setCleanSession(true);
 
