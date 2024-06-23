@@ -19,9 +19,6 @@ public class LogDeviceController {
     private static final Logger logger = LogManager.getLogger(LogDeviceController.class);
 
     @Autowired
-    private MqttService mqttService;
-
-    @Autowired
     private LogDeviceService logDeviceService = new LogDeviceServiceImpl();
 
     @GetMapping("/getLogDevice")

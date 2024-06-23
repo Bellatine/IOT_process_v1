@@ -2,6 +2,7 @@ package com.namng.iot_process_v1.controller;
 
 import com.namng.iot_process_v1.model.Device;
 import com.namng.iot_process_v1.service.DeviceService;
+import com.namng.iot_process_v1.service.MqttService;
 import com.namng.iot_process_v1.service.impl.DeviceServiceImp;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -20,6 +21,10 @@ public class DeviceController {
 
     @Autowired
     private DeviceService deviceService = new DeviceServiceImp();
+
+
+    @Autowired
+    private MqttService mqttService;
 
     @GetMapping("/getAllDevice")
     public ResponseEntity<?> GetAllDeviceInfor(){
@@ -67,6 +72,17 @@ public class DeviceController {
         }catch (Exception e){
             logger.error("getListDeviceByPoolId fail!" + username + " --- " + poolId);
             return ResponseEntity.badRequest().body("getListDeviceByPoolId fail");
+        }
+    }
+
+    @PostMapping("/sendCommand")
+    public ResponseEntity<?> sendCommandToDevice(@RequestParam Long deviceId, @RequestParam Long command){
+        try {
+            mqttService.controlDevice(1L, 1L);
+            return ResponseEntity.ok("ok");
+        }catch (Exception e){
+            logger.error("error send command");
+            return  ResponseEntity.badRequest().body(e.getMessage());
         }
     }
 }
