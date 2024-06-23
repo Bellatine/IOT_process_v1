@@ -2,7 +2,7 @@ package com.namng.iot_process_v1.model;
 
 import lombok.Data;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 @Data
 @Entity

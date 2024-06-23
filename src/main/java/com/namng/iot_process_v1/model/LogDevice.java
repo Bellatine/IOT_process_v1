@@ -4,23 +4,28 @@ import lombok.Data;
 
 import jakarta.persistence.*;
 
+import java.util.Date;
+
 @Data
 @Entity
-@Table(name = "device")
-public class Device {
+@Table(name = "log_device")
+public class LogDevice {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, unique = true)
-    private String name;
+    @Column(nullable = false)
+    private String infor;
 
     @Column(nullable = false)
-    private Long status;
+    private Date state_time;
 
     @Column(nullable = false)
-    private String description;
+    private int status_app;
 
     @Column(nullable = false)
-    private Long id_pool;
+    private int status_web;
+
+    @Column(nullable = false)
+    private Long id_device;
 }

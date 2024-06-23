@@ -35,3 +35,14 @@ CREATE TABLE `users`
     `email`    varchar(255) NOT NULL,
     PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+
+CREATE TABLE `log_device` (
+                              `id` int(11) NOT NULL AUTO_INCREMENT,
+                              `id_device` int(11) DEFAULT NULL,
+                              `infor` varchar(1000) DEFAULT NULL,
+                              `state_time` timestamp NULL DEFAULT current_timestamp(),
+                              `status_app` int(11) DEFAULT NULL,
+                              `status_web` int(11) DEFAULT NULL,
+                              PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
