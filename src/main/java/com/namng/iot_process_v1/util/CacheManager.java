@@ -20,6 +20,11 @@ public class CacheManager {
         public static User AUTH_USER;
     }
 
+    public static class LogDevice{
+        public static int NOT_SCAN = 0;
+        public static int SCANNED = 1;
+    }
+
 
 
 }

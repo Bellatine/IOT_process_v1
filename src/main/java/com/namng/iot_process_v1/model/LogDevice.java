@@ -10,6 +10,9 @@ import java.util.Date;
 @Entity
 @Table(name = "log_device")
 public class LogDevice {
+
+    public static final String KEY_ID = "DeviceId";
+    public static final String KEY_INFOR = "infor";
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
