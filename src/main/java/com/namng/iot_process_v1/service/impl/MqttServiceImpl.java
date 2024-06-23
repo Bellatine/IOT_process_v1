@@ -13,8 +13,13 @@ import org.eclipse.paho.client.mqttv3.MqttClient;
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
+import org.hibernate.annotations.CurrentTimestamp;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import java.util.Date;
+
+@Service
 public class MqttServiceImpl implements MqttService {
 
     private static final Logger logger = LogManager.getLogger(MqttService.class);
@@ -24,6 +29,25 @@ public class MqttServiceImpl implements MqttService {
     public MqttServiceImpl(LogDeviceRepository logDeviceRepository) {
         this.logDeviceRepository = logDeviceRepository;
         connectAndSubscribe();
+    }
+
+    @Override
+    public void saveLogDevice(String payload){
+        LogDevice logDevice = new LogDevice();
+        JsonObject jsonObject = JsonParser.parseString(payload).getAsJsonObject();
+        logDevice.setId_device((long) Integer.parseInt(String.valueOf(jsonObject.get(LogDevice.KEY_ID))));
+        logDevice.setInfor(String.valueOf(jsonObject.get(LogDevice.KEY_INFOR)));
+        logDevice.setStatus_app(CacheManager.LogDevice.NOT_SCAN);
+        logDevice.setStatus_web(CacheManager.LogDevice.NOT_SCAN);
+        logDevice.setState_time(new Date(System.currentTimeMillis()));
+        for (String key : jsonObject.keySet()) {
+            JsonElement value = jsonObject.get(key);
+            logger.info("Field " + key + ": " + value);
+
+        }
+//                logDevice.setIdDevice(1L); // Thay đổi logic để xác định id_device hợp lệ
+//                logDevice.setInfor(payload);
+        logDeviceRepository.save(logDevice);
     }
 
     private void connectAndSubscribe() {

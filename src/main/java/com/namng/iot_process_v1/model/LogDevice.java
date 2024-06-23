@@ -24,10 +24,10 @@ public class LogDevice {
     private Date state_time;
 
     @Column(nullable = false)
-    private int status_app;
+    private long status_app;
 
     @Column(nullable = false)
-    private int status_web;
+    private long status_web;
 
     @Column(nullable = false)
     private Long id_device;

@@ -21,8 +21,10 @@ public class CacheManager {
     }
 
     public static class LogDevice{
-        public static int NOT_SCAN = 0;
-        public static int SCANNED = 1;
+        public static Long NOT_SCAN = 0L;
+        public static Long SCANNED = 1L;
+        public static int TYPE_WEB = 1;
+        public static int TYPE_APP = 2;
     }
 
 
