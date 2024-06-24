@@ -20,16 +20,16 @@ public class LogDeviceServiceImpl implements LogDeviceService {
     private LogDeviceRepository logDeviceRepository;
 
     @Override
-    public List<LogDevice> getLogDeviceByStatus(int type) {
+    public List<LogDevice> getLogDeviceByStatus(int type, Long deviceId) {
         List<LogDevice> logDevices = null;
         if(type == CacheManager.LogDevice.TYPE_APP){
-            logDevices = logDeviceRepository.findWithStatusApp(CacheManager.LogDevice.NOT_SCAN);
+            logDevices = logDeviceRepository.findWithStatusApp(CacheManager.LogDevice.NOT_SCAN, deviceId);
             logger.info("Get log for app: " + logDevices.size());
             for(LogDevice logDevice : logDevices){
                 logDeviceRepository.updateStatusApp(CacheManager.LogDevice.SCANNED, logDevice.getId());
             }
         } else if(type == CacheManager.LogDevice.TYPE_WEB){
-            logDevices = logDeviceRepository.findWithStatusWeb(0L);
+            logDevices = logDeviceRepository.findWithStatusWeb(CacheManager.LogDevice.NOT_SCAN, deviceId)                                                   ;
             logger.info("Get log for web: " + logDevices.size());
             for(LogDevice logDevice : logDevices) {
                 logDeviceRepository.updateStatusWeb(CacheManager.LogDevice.SCANNED, logDevice.getId());

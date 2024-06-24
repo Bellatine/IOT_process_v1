@@ -36,7 +36,8 @@ public class DataLoader implements ApplicationRunner {
             Map<String, User> userMap = userService.loadAllUser();
 
             CacheManager.Users.ALLUSERS = userMap;
-            logger.info("Load data success! " + userMap.size());
+            if(userMap != null)
+                logger.info("Load data success! " + userMap.size());
         }catch (Exception e){
             logger.error("Load data fail.", e);
         }

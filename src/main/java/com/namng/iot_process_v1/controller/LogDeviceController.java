@@ -22,9 +22,9 @@ public class LogDeviceController {
     private LogDeviceService logDeviceService = new LogDeviceServiceImpl();
 
     @GetMapping("/getLogDevice")
-    public ResponseEntity<?> getLogDevice(@RequestParam int type){ //type 2: app, type 1: web
+    public ResponseEntity<?> getLogDevice(@RequestParam int type, @RequestParam Long deviceId){ //type 2: app, type 1: web
         try{
-            return ResponseEntity.ok(logDeviceService.getLogDeviceByStatus(type));
+            return ResponseEntity.ok(logDeviceService.getLogDeviceByStatus(type, deviceId));
         }catch (Exception e){
             logger.error("Error get logdevice ", e);
             return ResponseEntity.badRequest().body(e.getMessage());

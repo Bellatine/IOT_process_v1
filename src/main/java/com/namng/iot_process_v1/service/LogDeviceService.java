@@ -5,5 +5,5 @@ import com.namng.iot_process_v1.model.LogDevice;
 import java.util.List;
 
 public interface LogDeviceService {
-    List<LogDevice> getLogDeviceByStatus (int type);
+    List<LogDevice> getLogDeviceByStatus (int type, Long deviceId);
 }

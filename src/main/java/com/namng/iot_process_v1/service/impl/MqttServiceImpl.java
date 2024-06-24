@@ -27,7 +27,7 @@ public class MqttServiceImpl implements MqttService {
     private String pubTopicPath = "/test/namng1/";
 
     private String broker = "tcp://test.mosquitto.org:1883";
-    private String clientId = "namng2";
+    private String clientId = "namng";
     private String topic = "/test/namng1";
     private MemoryPersistence persistence = new MemoryPersistence();
     private MqttClient client = null;
