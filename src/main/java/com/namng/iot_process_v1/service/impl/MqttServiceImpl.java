@@ -24,11 +24,11 @@ import java.util.Date;
 public class MqttServiceImpl implements MqttService {
 
     private static final Logger logger = LogManager.getLogger(MqttService.class);
-    private String pubTopicPath = "/test/namng1/";
+    private String pubTopicPath = "/test/namng/command";
 
     private String broker = "tcp://test.mosquitto.org:1883";
     private String clientId = "namng";
-    private String topic = "/test/namng1";
+    private String topic = "/test/namng/iot";
     private MemoryPersistence persistence = new MemoryPersistence();
     private MqttClient client = null;
 
@@ -64,10 +64,11 @@ public class MqttServiceImpl implements MqttService {
     @Override
     public void controlDevice(Long deviceId, Long command) {
         try{
-            String pubTopic = pubTopicPath + String.valueOf(deviceId);
-            MqttMessage message = new MqttMessage(String.valueOf(command).getBytes());
+            //String pubTopic = pubTopicPath;
+            String msg = "{\"DeviceId\" : 1 , \"command\" : " + command + "}";
+            MqttMessage message = new MqttMessage(String.valueOf(msg).getBytes());
             message.setQos(1);
-            client.publish(pubTopic, message);
+            client.publish(pubTopicPath, message);
         }catch (Exception e){
             logger.error("pub fail deviceId: " + deviceId + " ---- command: " + command, e);
         }
