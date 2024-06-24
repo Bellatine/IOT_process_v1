@@ -65,7 +65,7 @@ public class MqttServiceImpl implements MqttService {
     public void controlDevice(Long deviceId, Long command) {
         try{
             //String pubTopic = pubTopicPath;
-            String msg = "{\"DeviceId\" : 1 , \"command\" : " + command + "}";
+            String msg = "{\"DeviceId\" : " + deviceId + " , \"command\" : " + command + "}";
             MqttMessage message = new MqttMessage(String.valueOf(msg).getBytes());
             message.setQos(1);
             client.publish(pubTopicPath, message);
