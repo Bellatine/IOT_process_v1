@@ -11,7 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/iot/device")
+@RequestMapping("/api/iot/pool")
 public class PoolController {
 
     private static final Logger logger = LogManager.getLogger(PoolController.class);
