@@ -78,7 +78,7 @@ public class DeviceController {
     @PostMapping("/sendCommand")
     public ResponseEntity<?> sendCommandToDevice(@RequestParam Long deviceId, @RequestParam Long command){
         try {
-            mqttService.controlDevice(1L, 1L);
+            mqttService.controlDevice(deviceId, command);
             return ResponseEntity.ok("ok");
         }catch (Exception e){
             logger.error("error send command");
